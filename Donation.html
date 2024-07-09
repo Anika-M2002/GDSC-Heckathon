@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity App</title>
+    <style>
+        .badge {
+            background-color: gold;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Charity App</h1>
+    <form id="charityForm">
+        <label for="restaurant">Select a restaurant:</label>
+        <select id="restaurant">
+            <option value="0">Restaurant A</option>
+            <option value="1">Restaurant B</option>
+            <option value="2">Restaurant C</option>
+        </select>
+        <br>
+        <label for="quantity">Enter the quantity you need:</label>
+        <input type="number" id="quantity" min="1" required>
+        <br>
+        <label for="donation">Enter donation amount ($):</label>
+        <input type="number" id="donation" min="0">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+    <h2>Restaurant Badges</h2>
+    <div id="badges"></div>
+    <h2>Donor Leaderboard</h2>
+    <ol id="leaderboard"></ol>
+
+    <script>
+        var restaurants = [
+            { name: 'Restaurant A', offeredQuantity: 50, rating: 4.2, donations: 0 },
+            { name: 'Restaurant B', offeredQuantity: 100, rating: 4.5, donations: 0 },
+            { name: 'Restaurant C', offeredQuantity: 75, rating: 3.8, donations: 0 }
+        ];
+
+        var leaderboard = [];
+
+        function updateBadges() {
+            var badgesContainer = document.getElementById('badges');
+            badgesContainer.innerHTML = '';
+            restaurants.forEach(function(restaurant) {
+                var badge = document.createElement('div');
+                badge.classList.add('badge');
+                badge.innerText = restaurant.name + ' - Donations: ' + restaurant.donations;
+                badgesContainer.appendChild(badge);
+            });
+        }
+
+        function updateLeaderboard() {
+            var leaderboardContainer = document.getElementById('leaderboard');
+            leaderboardContainer.innerHTML = '';
+            leaderboard.forEach(function(donor, index) {
+                var listItem = document.createElement('li');
+                listItem.innerText = donor.name + ' ($' + donor.donation + ')';
+                leaderboardContainer.appendChild(listItem);
+            });
+        }
+
+        document.getElementById('charityForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var restaurantSelect = document.getElementById('restaurant');
+            var selectedRestaurant = restaurantSelect.options[restaurantSelect.selectedIndex].text;
+            var desiredQuantity = parseInt(document.getElementById('quantity').value);
+            var donationAmount = parseInt(document.getElementById('donation').value);
+
+            var choice = restaurantSelect.value;
+            if (desiredQuantity <= restaurants[choice].offeredQuantity) {
+                restaurants[choice].donations += 1;
+                if (donationAmount > 0) {
+                    leaderboard.push({ name: selectedRestaurant, donation: donationAmount });
+                }
+                document.getElementById('result').innerText = 'Food available from ' + selectedRestaurant + ' for charity. Rating: ' + restaurants[choice].rating;
+            } else {
+                document.getElementById('result').innerText = 'Sorry, the selected restaurant cannot provide the desired quantity.';
+            }
+
+            updateBadges();
+            updateLeaderboard();
+        });
+    </script>
+</body>
+</html>
+

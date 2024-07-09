@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity App</title>
+</head>
+<body>
+    <h1>Charity App</h1>
+
+    <!-- Donation Section -->
+    <section id="donationSection">
+        <h2>Make a Donation</h2>
+        <form id="donationForm">
+            <label for="amount">Enter the amount you wish to donate:</label>
+            <input type="number" id="amount" min="1" required>
+            <br>
+            <button type="submit">Donate</button>
+        </form>
+    </section>
+
+    <!-- Restaurant Selection -->
+    <section id="restaurantSection">
+        <h2>Choose a Restaurant</h2>
+        <form id="charityForm">
+            <label for="restaurant">Select a restaurant:</label>
+            <select id="restaurant">
+                <option value="0">Restaurant A</option>
+                <option value="1">Restaurant B</option>
+                <option value="2">Restaurant C</option>
+            </select>
+            <br>
+            <label for="quantity">Enter the quantity you need:</label>
+            <input type="number" id="quantity" min="1" required>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result"></div>
+    </section>
+
+    <!-- Badges and Leaderboard -->
+    <section id="badgesLeaderboard">
+        <h2>Badges and Leaderboard</h2>
+        <!-- Display badges awarded to restaurants -->
+        <div id="badges"></div>
+        <!-- Display donor leaderboard -->
+        <div id="leaderboard"></div>
+    </section>
+
+    <script>
+        // Donation Form Event Listener
+        document.getElementById('donationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var amountDonated = parseInt(document.getElementById('amount').value);
+            // Process donation, update leaderboard, etc.
+            // Example: display thank you message or update donor leaderboard
+        });
+
+        // Restaurant Form Event Listener
+        document.getElementById('charityForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var restaurantSelect = document.getElementById('restaurant');
+            var selectedRestaurant = restaurantSelect.options[restaurantSelect.selectedIndex].text;
+            var desiredQuantity = parseInt(document.getElementById('quantity').value);
+            // Rest of the code for selecting restaurant and displaying result
+        });
+    </script>
+</body>
+</html>

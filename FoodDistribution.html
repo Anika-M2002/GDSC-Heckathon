@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity App</title>
+</head>
+<body>
+    <h1>Charity App</h1>
+    <form id="charityForm">
+        <label for="restaurant">Select a restaurant:</label>
+        <select id="restaurant">
+            <option value="0">Restaurant A</option>
+            <option value="1">Restaurant B</option>
+            <option value="2">Restaurant C</option>
+        </select>
+        <br>
+        <label for="quantity">Enter the quantity you need:</label>
+        <input type="number" id="quantity" min="1" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('charityForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var restaurantSelect = document.getElementById('restaurant');
+            var selectedRestaurant = restaurantSelect.options[restaurantSelect.selectedIndex].text;
+            var desiredQuantity = parseInt(document.getElementById('quantity').value);
+
+            // Perform validation if needed
+            // Check if desiredQuantity is a valid number and greater than 0
+
+            var restaurants = [
+                { name: 'Restaurant A', offeredQuantity: 50, rating: 4.2 },
+                { name: 'Restaurant B', offeredQuantity: 100, rating: 4.5 },
+                { name: 'Restaurant C', offeredQuantity: 75, rating: 3.8 }
+            ];
+
+            var choice = restaurantSelect.value;
+            if (desiredQuantity <= restaurants[choice].offeredQuantity) {
+                document.getElementById('result').innerText = 'Food available from ' + selectedRestaurant + ' for charity. Rating: ' + restaurants[choice].rating;
+            } else {
+                document.getElementById('result').innerText = 'Sorry, the selected restaurant cannot provide the desired quantity.';
+            }
+        });
+    </script>
+</body>
+</html>
